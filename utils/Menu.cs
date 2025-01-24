@@ -17,6 +17,7 @@ public class Menu(string[] options)
     /// <returns></returns>
     public int show()
     {
+        Console.Clear();
         bool isSelected = false;
         Console.WriteLine("Press arrow up and down to navigate. Select with enter");
         (int Left, int Top) = Console.GetCursorPosition();

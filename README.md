@@ -9,7 +9,7 @@
 
 ## Via Entity framework : Console
 
-- [ ]  Hämta alla elever.
+- [x]  Hämta alla elever.
     
     Användaren får välja om de vill se eleverna sorterade på för- eller efternamn och om det ska vara stigande eller fallande sortering.
     

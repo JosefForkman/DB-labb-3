@@ -13,7 +13,7 @@
     
     Användaren får välja om de vill se eleverna sorterade på för- eller efternamn och om det ska vara stigande eller fallande sortering.
     
-- [ ]  Hämta alla elever i en viss klass.
+- [x]  Hämta alla elever i en viss klass.
     
     Användaren ska först få se en lista med alla klasser som finns, sedan får användaren välja en av klasserna och då skrivs alla elever i den klassen ut.
     

@@ -33,7 +33,7 @@ public class StudentController : IController
             return;
         }
 
-        var menu = new Menu(new string[] { "Förnamn A-Ö","Förnamn Ö-A", "Efternamn A-Ö", "Efternamn Ö-A" });
+        var menu = new Menu(new string[] { "Förnamn A-Ö", "Förnamn Ö-A", "Efternamn A-Ö", "Efternamn Ö-A" });
 
         Console.WriteLine("Hur vill du sortera eleverna?");
         int selectedOption = menu.show();

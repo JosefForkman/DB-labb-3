@@ -9,7 +9,7 @@ public class EmployeeController : IController
 {
     public void Create()
     {
-        var db = new SkolaJosefContext();
+        var db = Db.Connect();
 
 
         var newEmployee = new Employee

@@ -18,7 +18,7 @@ public class ClassController : IController
 
     public void Index()
     {
-        var db = new SkolaJosefContext();
+        var db = Db.Connect();
 
         var classes = db.Classes.Select(c => c.Name).ToList();
 

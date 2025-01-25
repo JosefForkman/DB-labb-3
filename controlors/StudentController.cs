@@ -24,7 +24,7 @@ public class StudentController : IController
 
     public void Show()
     {
-        var db = new SkolaJosefContext();
+        var db = Db.Connect();
         var students = db.Students.ToList();
 
         if (students.Count == 0)

@@ -8,8 +8,11 @@ namespace Program
         static void Main(string[] args)
         {
             var menu = new Menu(new string[] { "Visa alla elever", "Visa en spesifik klass", "Lägg till personal", "Avsluta" });
+            
             var studentController = new StudentController();
             var classController = new ClassController();
+            var employeeController = new EmployeeController();
+
             bool isRunning = true;
             while (isRunning)
             {
@@ -24,7 +27,7 @@ namespace Program
                         classController.Index();
                         break;
                     case 2:
-                        Console.WriteLine("Option 3 selected");
+                        employeeController.Create();
                         break;
                     case 3:
                         isRunning = false;

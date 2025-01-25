@@ -1,0 +1,13 @@
+using System;
+
+namespace DB_labb_3.utils;
+
+public static class Helpers
+{
+
+    public static string Ask(string question)
+    {
+        Console.WriteLine(question);
+        return Console.ReadLine() ?? "";
+    }
+}

@@ -9,30 +9,32 @@ public class EmployeeController : IController
 {
     public void Create()
     {
-        var db = Db.Connect();
-
-
-        var newEmployee = new Employee
+        // var db = Db.Connect();
+        using (var db = new SkolaJosefContext())
         {
-            FirstName = Helpers.Ask("Förnamn: "),
-            LastName = Helpers.Ask("Efternamn: "),
-        };
+            var newEmployee = new Employee
+            {
+                FirstName = Helpers.Ask("Förnamn: "),
+                LastName = Helpers.Ask("Efternamn: "),
+            };
 
-        var rolls = db.Roles.ToList();
-        var menu = new Menu(rolls.Select(r => r.Name).ToArray());
+            var rolls = db.Roles.ToList();
+            var menu = new Menu(rolls.Select(r => r.Name).ToArray());
 
-        int selectedOption = menu.show();
+            int selectedOption = menu.show();
 
 
-        
-        
 
-        db.Employees.Add(newEmployee);
-        db.SaveChanges();
 
-        Console.WriteLine($"{TextColor.Green}Anställd tillagd{TextColor.Normal}");
 
-        Console.ReadKey();
+            db.Employees.Add(newEmployee);
+            db.SaveChanges();
+
+            Console.WriteLine($"{TextColor.Green}Anställd tillagd{TextColor.Normal}");
+
+            Console.ReadKey();
+        }
+
     }
 
     public void Destroy()

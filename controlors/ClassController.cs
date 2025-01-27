@@ -19,29 +19,28 @@ public class ClassController : IController
     public void Index()
     {
         // var db = Db.Connect();
-        using (var db = new SkolaJosefContext())
+        using var db = new SkolaJosefContext();
+        var classes = db.Classes.Select(c => c.Name).ToList();
+
+        if (classes.Count == 0)
         {
-            var classes = db.Classes.Select(c => c.Name).ToList();
-
-            if (classes.Count == 0)
-            {
-                Console.WriteLine($"{TextColor.Red}No classes found{TextColor.Normal}");
-                return;
-            }
-
-            var menu = new Menu(classes.ToArray());
-
-            var index = menu.show() + 1;
-
-            var students = db.Students.Where(studen => studen.ClassId == index).ToList();
-
-            foreach (var student in students)
-            {
-                Console.WriteLine($"{student.FirstName} {student.LastName}");
-            }
-
-            Console.ReadKey();
+            Console.WriteLine($"{TextColor.Red}No classes found{TextColor.Normal}");
+            return;
         }
+
+        var menu = new Menu(classes.ToArray());
+
+        var index = menu.show() + 1;
+
+        var students = db.Students.Where(studen => studen.ClassId == index).ToList();
+        db.Dispose();
+
+        foreach (var student in students)
+        {
+            Console.WriteLine($"{student.FirstName} {student.LastName}");
+        }
+
+        Console.ReadKey();
 
     }
 

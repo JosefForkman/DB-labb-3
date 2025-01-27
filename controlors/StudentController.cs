@@ -25,47 +25,45 @@ public class StudentController : IController
     public void Show()
     {
         // var db = Db.Connect();
-        using (var db = new SkolaJosefContext())
+        using var db = new SkolaJosefContext();
+        var students = db.Students.ToList();
+        db.Dispose();
+
+        if (students.Count == 0)
         {
-            var students = db.Students.ToList();
-            db.Dispose();
-
-            if (students.Count == 0)
-            {
-                Console.WriteLine($"{TextColor.Red}No students found{TextColor.Normal}");
-                return;
-            }
-
-            var menu = new Menu(new string[] { "Förnamn A-Ö", "Förnamn Ö-A", "Efternamn A-Ö", "Efternamn Ö-A" });
-
-            Console.WriteLine("Hur vill du sortera eleverna?");
-            int selectedOption = menu.show();
-
-            switch (selectedOption)
-            {
-                case 0:
-                    students = students.OrderBy(s => s.FirstName).ToList();
-                    break;
-                case 1:
-                    students = students.OrderByDescending(s => s.FirstName).ToList();
-                    break;
-                case 2:
-                    students = students.OrderBy(s => s.LastName).ToList();
-                    break;
-                case 3:
-                    students = students.OrderByDescending(s => s.LastName).ToList();
-                    break;
-            }
-
-
-
-            foreach (var student in students)
-            {
-                Console.WriteLine($"{student.FirstName} {student.LastName}");
-            }
-
-            Console.ReadKey();
+            Console.WriteLine($"{TextColor.Red}No students found{TextColor.Normal}");
+            return;
         }
+
+        var menu = new Menu(new string[] { "Förnamn A-Ö", "Förnamn Ö-A", "Efternamn A-Ö", "Efternamn Ö-A" });
+
+        Console.WriteLine("Hur vill du sortera eleverna?");
+        int selectedOption = menu.show();
+
+        switch (selectedOption)
+        {
+            case 0:
+                students = students.OrderBy(s => s.FirstName).ToList();
+                break;
+            case 1:
+                students = students.OrderByDescending(s => s.FirstName).ToList();
+                break;
+            case 2:
+                students = students.OrderBy(s => s.LastName).ToList();
+                break;
+            case 3:
+                students = students.OrderByDescending(s => s.LastName).ToList();
+                break;
+        }
+
+
+
+        foreach (var student in students)
+        {
+            Console.WriteLine($"{student.FirstName} {student.LastName}");
+        }
+
+        Console.ReadKey();
     }
 
     public void Update()

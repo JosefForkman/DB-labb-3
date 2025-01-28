@@ -18,17 +18,27 @@ public class EmployeeController : IController
         };
 
         var rolls = db.Roles.ToList();
-        var menu = new Menu(rolls.Select(r => r.Name).ToArray());
+        var body = rolls.Select(r => r.Name).ToList();
+        var menu = new SelectOneOrMore(["Roller"], body);
+        // var menu = new Menu(rolls.Select(r => r.Name).ToArray());
 
-        int selectedOption = menu.show();
+        var selectedOption = menu.Show(3);
 
 
 
 
+        var inserted = db.Employees.Add(newEmployee);
+        
+        // db.SaveChanges();
 
-        db.Employees.Add(newEmployee);
-        db.SaveChanges();
-
+        foreach (var option in selectedOption)
+        {
+            db.RoleGropes.Add(new RoleGrope
+            {
+                Employee = newEmployee,
+                Role = rolls[option]
+            });
+        }
         db.Dispose();
 
         Console.WriteLine($"{TextColor.Green}Anställd tillagd{TextColor.Normal}");
@@ -49,7 +59,23 @@ public class EmployeeController : IController
 
     public void Show()
     {
-        throw new NotImplementedException();
+        using var db = new SkolaJosefContext();
+        var employees = db.Employees.ToList();
+        db.Dispose();
+
+        if (employees.Count == 0)
+        {
+            Console.WriteLine("Inga anställda hittades");
+            return;
+        }
+
+        Console.WriteLine("Anställda");
+        foreach (var employee in employees)
+        {
+            Console.WriteLine($"{employee.FirstName} {employee.LastName}");
+        }
+
+        Console.ReadKey();
     }
 
     public void Update()

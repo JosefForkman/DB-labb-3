@@ -7,7 +7,7 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            var menu = new Menu(new string[] { "Visa alla elever", "Visa en spesifik klass", "Lägg till personal", "Avsluta" });
+            var menu = new Menu(["Visa alla elever", "Visa en spesifik klass", "Visa alla arbetare", "Lägg till personal", "Avsluta"]);
             
             var studentController = new StudentController();
             var classController = new ClassController();
@@ -27,9 +27,12 @@ namespace Program
                         classController.Index();
                         break;
                     case 2:
-                        employeeController.Create();
+                        employeeController.Show();
                         break;
                     case 3:
+                        employeeController.Create();
+                        break;
+                    case 4:
                         isRunning = false;
                         break;
                 }

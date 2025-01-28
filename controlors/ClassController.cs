@@ -24,7 +24,8 @@ public class ClassController : IController
 
         if (classes.Count == 0)
         {
-            Console.WriteLine($"{TextColor.Red}No classes found{TextColor.Normal}");
+            Console.WriteLine($"{TextColor.Red}Inga klasser hittades{TextColor.Normal}");
+            Console.ReadKey();
             return;
         }
 
@@ -33,7 +34,6 @@ public class ClassController : IController
         var index = menu.show() + 1;
 
         var students = db.Students.Where(studen => studen.ClassId == index).ToList();
-        db.Dispose();
 
         foreach (var student in students)
         {

@@ -27,11 +27,11 @@ public class StudentController : IController
         // var db = Db.Connect();
         using var db = new SkolaJosefContext();
         var students = db.Students.ToList();
-        db.Dispose();
 
         if (students.Count == 0)
         {
-            Console.WriteLine($"{TextColor.Red}No students found{TextColor.Normal}");
+            Console.WriteLine($"{TextColor.Red}Hittade inga studenter{TextColor.Normal}");
+            Console.ReadKey();
             return;
         }
 

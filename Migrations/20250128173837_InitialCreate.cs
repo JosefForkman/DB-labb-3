@@ -77,11 +77,14 @@ namespace DB_labb_3.Migrations
                 name: "role_grope",
                 columns: table => new
                 {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     employee_id = table.Column<int>(type: "int", nullable: false),
                     role_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK__role_gro__3213E83FB6BE31D0", x => x.id);
                     table.ForeignKey(
                         name: "FK__role_grop__emplo__286302EC",
                         column: x => x.employee_id,

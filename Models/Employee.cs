@@ -14,4 +14,6 @@ public partial class Employee
     public virtual ICollection<Class> Classes { get; set; } = new List<Class>();
 
     public virtual ICollection<Grade> Grades { get; set; } = new List<Grade>();
+
+    public virtual ICollection<RoleGrope> RoleGropes { get; set; } = new List<RoleGrope>();
 }

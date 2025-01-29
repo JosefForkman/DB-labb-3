@@ -19,21 +19,21 @@
     
     Extra utmaning: låt användaren även få välja sortering på eleverna som i punkten ovan.
     
-- [ ]  Lägga till ny personal (ska lösas genom Entity framework)
+- [x]  Lägga till ny personal (ska lösas genom Entity framework)
     
     Användaren ska få möjlighet att mata in uppgifter om en ny anställd och den datan sparas då ner i databasen.
 
 ## Via SQL : Azure Data Studio (Query-fil eller notebook-fil)
 
-- [ ]  Hämta personal
+- [x]  Hämta personal
     
-    Användaren får välja om denna vill se alla anställda, eller bara inom en av kategorierna så som ex lärare.
+    Databasadministratören får välja om denna vill se alla anställda, eller bara inom en av kategorierna så som ex lärare. (Skriv t.ex. två queries eller lös det på annat vis med hjälp av stored procedure)
     
-- [ ]  Hämta alla betyg som satts den senaste månaden
+- [x]  Hämta alla betyg som satts den senaste månaden
     
     Här får användaren se en lista med alla betyg som satts senaste månaden där elevens namn, ämnet och betyget framgår.
     
-- [ ]  Hämta en lista med alla ämnen och det snittbetyg som eleverna fått i det ämnet samt det högsta och lägsta betyget som någon fått i kursen.
+- [x]  Hämta en lista med alla ämnen och det snittbetyg som eleverna fått i det ämnet samt det högsta och lägsta betyget som någon fått i kursen.
     
     Här får användaren se en lista med alla ämnen i databasen, snittbetyget samt det högsta och lägsta betyget för varje ämne.
     

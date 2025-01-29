@@ -2,7 +2,6 @@ using DB_labb_3.Data;
 using DB_labb_3.Interface;
 using DB_labb_3.Models;
 using DB_labb_3.utils;
-using Microsoft.EntityFrameworkCore;
 
 namespace DB_labb_3.controlors;
 
@@ -58,7 +57,7 @@ public class EmployeeController : IController
                 Role = rolls[option + 1] // +1 because menu retern 0 based index
             });
         }
-        // db.SaveChanges();
+        db.SaveChanges();
 
         Console.WriteLine($"{TextColor.Green}Anställd tillagd{TextColor.Normal}");
 

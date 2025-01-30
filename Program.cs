@@ -1,7 +1,7 @@
 ﻿using DB_labb_3.controlors;
 using DB_labb_3.utils;
 
-namespace Program
+namespace DB_labb_3
 {
     class Program
     {

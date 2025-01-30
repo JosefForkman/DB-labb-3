@@ -12,14 +12,14 @@ public class EmployeeController : IController
         // var db = Db.Connect();
         using var db = new SkolaJosefContext();
 
-        string firstName = Validation.MakeSureNotEmpty("Förnamn: ", "Förnamn");
-        string lastName = Validation.MakeSureNotEmpty("Efternamn: ", "Efternamn");
+        var firstName = Validation.MakeSureNotEmpty("Förnamn: ", "Förnamn");
+        var lastName = Validation.MakeSureNotEmpty("Efternamn: ", "Efternamn");
 
         var employeeExist = db.Employees.Where(employee => employee.FirstName == firstName && employee.LastName == lastName).FirstOrDefault();
 
-
-        if (!Validation.CheckIfNull(employeeExist, "Anställd finns inte"))
+        if (employeeExist != null)
         {
+            Console.WriteLine($"{TextColor.Red}Anställd finns redan{TextColor.Normal}");
             Console.ReadKey();
             return;
         }
@@ -30,7 +30,7 @@ public class EmployeeController : IController
             LastName = lastName,
         };
 
-        var rolls = db.Roles.ToList();
+        var rolls = db.Roles.OrderBy(role => role.Id).ToList();
 
         bool rollIsEmpty = !Validation.ObjNotEmty(rolls, "Inga roller hittades");
 
@@ -40,8 +40,8 @@ public class EmployeeController : IController
             return;
         }
 
-        var body = rolls.Select(roll => roll.Name).ToList();
-        var menu = new SelectOneOrMore(["Roller"], body);
+        var body = rolls.Select(roll => roll.Name);
+        var menu = new SelectOneOrMore(["Roller"], body.ToList());
 
         var selectedOption = menu.Show(3);
 
@@ -51,11 +51,15 @@ public class EmployeeController : IController
 
         foreach (var option in selectedOption)
         {
-            db.RoleGropes.Add(new RoleGrope
+            var role = rolls.FirstOrDefault(role => role.Id == (option + 1)); // +1 because menu retern 0 based index
+            if (role != null)
             {
-                Employee = newEmployee,
-                Role = rolls[option + 1] // +1 because menu retern 0 based index
-            });
+                db.RoleGropes.Add(new RoleGrope
+                {
+                    Employee = newEmployee,
+                    Role = role
+                });
+            }
         }
         db.SaveChanges();
 
@@ -68,13 +72,16 @@ public class EmployeeController : IController
     public void Destroy()
     {
         using var db = new SkolaJosefContext();
-        string firstName = Validation.MakeSureNotEmpty("Förnamn: ", "Förnamn");
-        string lastName = Validation.MakeSureNotEmpty("Efternamn: ", "Efternamn");
+        var employees = db.Employees;
+        
+        var employeesOptions = employees.Select(employee => $"{employee.FirstName} {employee.LastName}").ToList();
+        var menu = new SelectOneOrMore(["Anstäld"], employeesOptions.ToList());
+        var selectedOption = menu.Show();
+        var employee = employees.ToList()[selectedOption[0]];
 
-        var employee = db.Employees.Where(employee => employee.FirstName == firstName && employee.LastName == lastName).FirstOrDefault();
-
-        if (!Validation.CheckIfNull(employee, "Anställd hittades inte"))
+        if (employee == null)
         {
+            Console.WriteLine($"{TextColor.Red}Anställd hittades inte{TextColor.Normal}");
             Console.ReadKey();
             return;
         }
@@ -83,6 +90,7 @@ public class EmployeeController : IController
 
         if (!isSure)
         {
+            Console.WriteLine($"{TextColor.Green}Anställd inte borttagen{TextColor.Normal}");
             Console.ReadKey();
             return;
         }

@@ -39,7 +39,7 @@
     
     Tips: För att få ut ett medelvärde för betyg med bokstäver kan du behöva omvandla värdena till siffror.
     
-- [ ]  Lägga till nya elever.
+- [x]  Lägga till nya elever.
     
     Användaren får möjlighet att mata in uppgifter om en ny elev och den datan sparas då ner i databasen.
 

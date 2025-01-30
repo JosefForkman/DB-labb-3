@@ -22,21 +22,6 @@ public static class Validation
     }
 
     /// <summary>
-    /// Make sure object is not null
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <param name="message"></param>
-    /// <returns></returns>
-    public static bool CheckIfNull<T>(T? obj, string message)
-    {
-        if (obj == null)
-        {
-            Console.WriteLine($"{TextColor.Red}{message}{TextColor.Normal}");
-            return true;
-        }
-        return false;
-    }
-    /// <summary>
     /// Make sure object is not empty
     /// </summary>
     /// <typeparam name="T"></typeparam>

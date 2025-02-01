@@ -1,6 +1,4 @@
-using System;
-
-namespace DB_labb_3.utils;
+namespace DB_labb_3.Utils;
 
 /// <summary>
 /// Make a menu with the given options

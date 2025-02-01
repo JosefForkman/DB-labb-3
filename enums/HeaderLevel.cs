@@ -1,4 +1,4 @@
-namespace DB_labb_3.enums;
+namespace DB_labb_3.Enum;
 
 public enum HeaderLevel
 {

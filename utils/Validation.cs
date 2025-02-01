@@ -1,4 +1,4 @@
-namespace DB_labb_3.utils;
+namespace DB_labb_3.Utils;
 
 /// <summary>
 /// Validation class for validating input from user.

@@ -1,6 +1,6 @@
-using DB_labb_3.enums;
+using DB_labb_3.Enum;
 
-namespace DB_labb_3.utils;
+namespace DB_labb_3.Utils;
 
 public class SelectOneOrMore
 {

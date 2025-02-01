@@ -1,6 +1,6 @@
 using System;
 
-namespace DB_labb_3.utils;
+namespace DB_labb_3.Utils;
 
 public static class Helpers
 {

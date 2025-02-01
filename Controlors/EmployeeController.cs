@@ -3,7 +3,7 @@ using DB_labb_3.Interface;
 using DB_labb_3.Models;
 using DB_labb_3.Utils;
 
-namespace DB_labb_3.controlors;
+namespace DB_labb_3.Controlors;
 
 public class EmployeeController : IController
 {

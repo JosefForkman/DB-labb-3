@@ -1,4 +1,4 @@
-﻿using DB_labb_3.controlors;
+﻿using DB_labb_3.Controlors;
 using DB_labb_3.Utils;
 
 namespace DB_labb_3

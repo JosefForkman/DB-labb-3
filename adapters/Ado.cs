@@ -19,7 +19,18 @@ public class Ado
         {
             list.Add(map(reader));
         }
-
+        connection.Close();
         return list;
+    }
+
+    public static int Query(string query, SqlParameter[] parameters)
+    {
+        using var connection = new SqlConnection(ConnectionString);
+        connection.Open();
+
+        using var command = new SqlCommand(query, connection);
+        command.Parameters.AddRange(parameters);
+        connection.Close();
+        return command.ExecuteNonQuery();
     }
 }

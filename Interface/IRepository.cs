@@ -6,5 +6,12 @@ public interface IRepository<T>
     /// Get all data from the database
     /// </summary>
     /// <returns></returns>
-    List<T> GetAll();
+    List<T> Get();
+
+    /// <summary>
+    /// Create a new entity in the database
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    T Create(T entity);
 }

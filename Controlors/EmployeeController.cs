@@ -1,4 +1,6 @@
 using DB_labb_3.Data;
+using DB_labb_3.Enums;
+using DB_labb_3.Factory;
 using DB_labb_3.Interface;
 using DB_labb_3.Models;
 using DB_labb_3.Utils;
@@ -15,7 +17,10 @@ public class EmployeeController : IController
         var firstName = Validation.MakeSureNotEmpty("Förnamn: ", "Förnamn");
         var lastName = Validation.MakeSureNotEmpty("Efternamn: ", "Efternamn");
 
-        var employeeExist = db.Employees.Where(employee => employee.FirstName == firstName && employee.LastName == lastName).FirstOrDefault();
+        // var employeeExist = db.Employees.Where(employee => employee.FirstName == firstName && employee.LastName == lastName).FirstOrDefault();
+
+        var employee = DbFactory.GetRepository<Employee>(DBTable.Employee)!;
+        var employeeExist = employee?.Get().Where(employee => employee.FirstName == firstName && employee.LastName == lastName).FirstOrDefault();
 
         if (employeeExist != null)
         {
@@ -45,9 +50,17 @@ public class EmployeeController : IController
 
         var selectedOption = menu.Show(3);
 
-        db.Employees.Add(newEmployee);
+        // db.Employees.Add(newEmployee);
+        newEmployee = employee!.Create(newEmployee);
 
-        db.SaveChanges();
+        // db.SaveChanges();
+
+        if (newEmployee == null)
+        {
+            Console.WriteLine($"{TextColor.Red}Anställd kunde inte skapas{TextColor.Normal}");
+            Console.ReadKey();
+            return;
+        }
 
         foreach (var option in selectedOption)
         {
@@ -56,7 +69,7 @@ public class EmployeeController : IController
             {
                 db.RoleGropes.Add(new RoleGrope
                 {
-                    Employee = newEmployee,
+                    EmployeeId = newEmployee.Id,
                     Role = role
                 });
             }
@@ -73,8 +86,15 @@ public class EmployeeController : IController
     {
         using var db = new SkolaJosefContext();
         var employees = db.Employees;
-        
+
         var employeesOptions = employees.Select(employee => $"{employee.FirstName} {employee.LastName}").ToList();
+
+        if (!Validation.ObjNotEmty(employeesOptions, "Inga anställda hittades"))
+        {
+            Console.ReadKey();
+            return;
+        }
+
         var menu = new SelectOneOrMore(["Anstäld"], employeesOptions.ToList());
         var selectedOption = menu.Show();
         var employee = employees.ToList()[selectedOption[0]];

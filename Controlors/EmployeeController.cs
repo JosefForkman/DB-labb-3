@@ -151,8 +151,36 @@ public class EmployeeController : IController
     public void ShowCount()
     {
         using var db = new SkolaJosefContext();
-        var employeesAsTechers = db.RoleGropes.Include(rg => rg.Role).Where(rg => rg.Role.Name == "Lärare").ToList();
 
+        var teacherIds = db.RoleGropes
+            .Include(rg => rg.Role)
+            .Where(role => role.Role.Name == "Lärare")
+            .Select(role => role.EmployeeId)
+            .ToList();
+
+        if (!Validation.ObjNotEmty(teacherIds, $"{TextColor.Red}Inga lärare hittades{TextColor.Normal}"))
+        {
+            Console.ReadKey();
+            return;
+        }
+
+        var teachers = db.RoleGropes
+            .Where(role => teacherIds.Contains(role.EmployeeId) && role.Role.Name != "Lärare")
+            .GroupBy(role => role.Role.Name)
+            .Select(role => new { Name = role.Key, Count = role.Count() })
+            .ToList();
+
+        if (!Validation.ObjNotEmty(teachers, $"{TextColor.Green}Inga lärare har ett specifikt skolämne{TextColor.Normal}"))
+        {
+            Console.ReadKey();
+            return;
+        }
+
+        foreach (var teacher in teachers)
+        {
+            Console.WriteLine($"{teacher.Name}: {teacher.Count}st");
+        }
+        Console.ReadKey();
     }
     public void Update()
     {

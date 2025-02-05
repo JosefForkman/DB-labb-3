@@ -4,6 +4,7 @@ using DB_labb_3.Factory;
 using DB_labb_3.Interface;
 using DB_labb_3.Models;
 using DB_labb_3.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace DB_labb_3.Controlors;
 
@@ -147,6 +148,12 @@ public class EmployeeController : IController
         Console.ReadKey();
     }
 
+    public void ShowCount()
+    {
+        using var db = new SkolaJosefContext();
+        var employeesAsTechers = db.RoleGropes.Include(rg => rg.Role).Where(rg => rg.Role.Name == "Lärare").ToList();
+
+    }
     public void Update()
     {
         throw new NotImplementedException();

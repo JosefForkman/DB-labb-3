@@ -17,14 +17,15 @@
 			"settings": { 
 				"mssql.connections": [
 					{
-						"server": "db,1433",
+						"server": "db",
 						"database": "",
 						"authenticationType": "SqlLogin",
 						"user": "sa",
 						"password": "P@ssw0rd",
 						"emptyPasswordInput": false,
 						"savePassword": false,
-						"profileName": "mssql-container"
+						"profileName": "mssql-container",
+						"trustServerCertificate": true
 					}
 				],
 				"csharp.debug.console": "integratedTerminal"

@@ -133,7 +133,7 @@ public class EmployeeController : IController
 
         if (employees.Count == 0)
         {
-            Console.WriteLine("Inga anställda hittades");
+            Console.WriteLine($"{TextColor.Red}Inga anställda hittades{TextColor.Normal}");
             Console.ReadKey();
             return;
         }

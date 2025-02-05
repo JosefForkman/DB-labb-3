@@ -9,17 +9,16 @@ Här följer de funktioner du ska bygga i ditt program.
 
 - [x] Det måste finnas en meny där man kan välja att visa olika data som efterfrågas av skolan. (Console)
 - [ ] Hur många lärare jobbar på de olika avdelningarna? (EF)
-- [ ] Visa information om alla elever (EF)
+- [ ] Visa information om alla elever (t.ex namn, klass och annat som är intressant/relevant i din databas) (EF)
 - [ ] Visa en lista på alla aktiva kurser (EF)
 - [ ] Skolan vill kunna ta fram en översikt över all personal där det framgår namn och vilka befattningar de har samt hur många år de har arbetat på skolan. Administratören vill också ha möjlighet att spara ner ny personal. (SQL via ADO.Net)
     - [x] namn
     - [ ] befattning
     - [ ] anställningsdatum
     - [ ] antal år på skolan
-- [ ] Vi vill spara ner elever och se vilken klass de går i. Vi vill kunna spara ner betyg för en elev i varje kurs de läst och vi vill kunna se vilken lärare som satt betyget. Betyg ska också ha ett datum då de satts. (SQL via ADO.Net)
-    - [ ] Skapa en ny elev
-    - [ ] Kunna se vilken klass en elev går i
-    - [ ] Sätta betyg för en elev
+    - [ ] skapa ny personal
+- [ ] Vi vill kunna ta fram alla betyg för en elev i varje kurs/ämne de läst och vi vill kunna se vilken lärare som satt betygen, vi vill också se vilka datum betygen satts. (SQL via ADO.Net)
+    - [ ] Se betyg för en specifik elev i varje kurs/ämne
     - [ ] Se vilken lärare som satt betyget
     - [ ] Se datum för betyget
 - [ ] Hur mycket betalar respektive avdelning ut i lön varje månad? (SQL via ADO.Net)

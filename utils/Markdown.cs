@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
-using DB_labb_3.enums;
+using DB_labb_3.Enum;
 
-namespace DB_labb_3.utils;
+namespace DB_labb_3.Utils;
 
 /// <summary>
 /// This is a helper static class to generate markdown code.

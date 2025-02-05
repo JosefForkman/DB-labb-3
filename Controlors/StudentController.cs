@@ -1,8 +1,8 @@
 using DB_labb_3.Data;
 using DB_labb_3.Interface;
-using DB_labb_3.utils;
+using DB_labb_3.Utils;
 
-namespace DB_labb_3.controlors;
+namespace DB_labb_3.Controlors;
 
 public class StudentController : IController
 {

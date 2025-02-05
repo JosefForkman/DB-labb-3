@@ -21,16 +21,22 @@ INSERT INTO employee (first_name, last_name) VALUES
 ('Sara', 'Karlsson');
 
 -- Role grope
+Use SkolaJosef;
 INSERT INTO role_grope (employee_id, role_id) VALUES
 (1, 1),  
 (1, 2),  
 (1, 3),  
 (2, 1),  
 (2, 4),  
-(2, 5),  
-(3, 7),  
-(4, 8),  
+(2, 5),
+(3, 1),  
+(3, 7),
+(4, 1),  
+(4, 8),
+(5, 1),    
 (5, 9);
+
+
 
 
 -- Class

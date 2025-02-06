@@ -44,6 +44,8 @@ public partial class SkolaJosefContext : DbContext
 
             entity.ToTable("class");
 
+            entity.HasIndex(e => e.MentorId, "IX_class_mentor_id");
+
             entity.HasIndex(e => e.Name, "UQ__class__72E12F1B12AA3B38").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
@@ -71,6 +73,10 @@ public partial class SkolaJosefContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__class_sc__3213E83FEB2ACFDB");
 
             entity.ToTable("class_schema");
+
+            entity.HasIndex(e => e.ClassId, "IX_class_schema_class_id");
+
+            entity.HasIndex(e => e.SubjectId, "IX_class_schema_subject_id");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ClassId).HasColumnName("class_id");
@@ -110,6 +116,10 @@ public partial class SkolaJosefContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("last_name");
+            entity.Property(e => e.Salary)
+                .HasDefaultValue(0m)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("salary");
         });
 
         modelBuilder.Entity<Grade>(entity =>
@@ -117,6 +127,12 @@ public partial class SkolaJosefContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__grade__3213E83F2E3E999E");
 
             entity.ToTable("grade");
+
+            entity.HasIndex(e => e.EmployeeId, "IX_grade_employee_id");
+
+            entity.HasIndex(e => e.StudentId, "IX_grade_student_id");
+
+            entity.HasIndex(e => e.SubjectId, "IX_grade_subject_id");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -172,6 +188,10 @@ public partial class SkolaJosefContext : DbContext
 
             entity.ToTable("role_grope");
 
+            entity.HasIndex(e => e.EmployeeId, "IX_role_grope_employee_id");
+
+            entity.HasIndex(e => e.RoleId, "IX_role_grope_role_id");
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
             entity.Property(e => e.RoleId).HasColumnName("role_id");
@@ -192,6 +212,8 @@ public partial class SkolaJosefContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__student__3213E83F3B851BDB");
 
             entity.ToTable("student");
+
+            entity.HasIndex(e => e.ClassId, "IX_student_class_id");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ClassId).HasColumnName("class_id");

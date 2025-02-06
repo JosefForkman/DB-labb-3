@@ -5,11 +5,11 @@ namespace DB_labb_3.Models;
 
 public partial class RoleGrope
 {
+    public int Id { get; set; }
+
     public int EmployeeId { get; set; }
 
     public int RoleId { get; set; }
-
-    public int Id { get; set; }
 
     public virtual Employee Employee { get; set; } = null!;
 

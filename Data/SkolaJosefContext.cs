@@ -117,9 +117,10 @@ public partial class SkolaJosefContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("last_name");
             entity.Property(e => e.Salary)
-                .HasDefaultValue(0m)
+                .HasDefaultValue(0.0m)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("salary");
+            entity.Property(e => e.StartDate).HasColumnName("start_date");
         });
 
         modelBuilder.Entity<Grade>(entity =>

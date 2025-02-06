@@ -8,10 +8,11 @@ namespace DB_labb_3
     {
         static void Main(string[] args)
         {
-            var menu = new Menu(["Visa alla elever", "Visa en spesifik klass", "Visa alla arbetare", "Visa antal anstälda", "Lägg till arbetare", "Ta bort arbetare", "Avsluta"]);
+            var menu = new Menu(["Visa alla elever", "Visa en spesifik klass", "Visa alla pågående classer", "Visa alla arbetare", "Visa antal anstälda", "Lägg till arbetare", "Ta bort arbetare", "Avsluta"]);
 
             var studentController = new StudentController();
             var classController = new ClassController();
+            var classSchemaController = new ClassSchemaController();
             var employeeController = new EmployeeController();
 
             bool isRunning = true;
@@ -28,18 +29,21 @@ namespace DB_labb_3
                         classController.Index();
                         break;
                     case 2:
-                        employeeController.Show();
+                        classSchemaController.Show();
                         break;
                     case 3:
-                        employeeController.ShowCount();
+                        employeeController.Show();
                         break;
                     case 4:
-                        employeeController.Create();
+                        employeeController.ShowCount();
                         break;
                     case 5:
-                        employeeController.Destroy();
+                        employeeController.Create();
                         break;
                     case 6:
+                        employeeController.Destroy();
+                        break;
+                    case 7:
                         isRunning = false;
                         break;
                 }

@@ -1,4 +1,5 @@
 ﻿using DB_labb_3.Controlors;
+using DB_labb_3.Interface;
 using DB_labb_3.Utils;
 
 namespace DB_labb_3
@@ -7,8 +8,8 @@ namespace DB_labb_3
     {
         static void Main(string[] args)
         {
-            var menu = new Menu(["Visa alla elever", "Visa en spesifik klass", "Visa alla arbetare", "Lägg till arbetare", "Ta bort arbetare", "Avsluta"]);
-            
+            var menu = new Menu(["Visa alla elever", "Visa en spesifik klass", "Visa alla arbetare", "Visa antal anstälda", "Lägg till arbetare", "Ta bort arbetare", "Avsluta"]);
+
             var studentController = new StudentController();
             var classController = new ClassController();
             var employeeController = new EmployeeController();
@@ -30,12 +31,15 @@ namespace DB_labb_3
                         employeeController.Show();
                         break;
                     case 3:
-                        employeeController.Create();
+                        employeeController.ShowCount();
                         break;
                     case 4:
-                        employeeController.Destroy();
+                        employeeController.Create();
                         break;
                     case 5:
+                        employeeController.Destroy();
+                        break;
+                    case 6:
                         isRunning = false;
                         break;
                 }

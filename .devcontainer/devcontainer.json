@@ -27,7 +27,8 @@
 						"profileName": "mssql-container",
 						"trustServerCertificate": true
 					}
-				]
+				],
+    			"csharp.debug.console": "integratedTerminal"
 			},
 			
 			// Add the IDs of extensions you want installed when the container is created.

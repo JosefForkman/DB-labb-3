@@ -4,6 +4,7 @@ using DB_labb_3.Factory;
 using DB_labb_3.Interface;
 using DB_labb_3.Models;
 using DB_labb_3.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace DB_labb_3.Controlors;
 
@@ -133,7 +134,7 @@ public class EmployeeController : IController
 
         if (employees.Count == 0)
         {
-            Console.WriteLine("Inga anställda hittades");
+            Console.WriteLine($"{TextColor.Red}Inga anställda hittades{TextColor.Normal}");
             Console.ReadKey();
             return;
         }
@@ -147,6 +148,40 @@ public class EmployeeController : IController
         Console.ReadKey();
     }
 
+    public void ShowCount()
+    {
+        using var db = new SkolaJosefContext();
+
+        var teacherIds = db.RoleGropes
+            .Include(rg => rg.Role)
+            .Where(role => role.Role.Name == "Lärare")
+            .Select(role => role.EmployeeId)
+            .ToList();
+
+        if (!Validation.ObjNotEmty(teacherIds, $"{TextColor.Red}Inga lärare hittades{TextColor.Normal}"))
+        {
+            Console.ReadKey();
+            return;
+        }
+
+        var teachers = db.RoleGropes
+            .Where(role => teacherIds.Contains(role.EmployeeId) && role.Role.Name != "Lärare")
+            .GroupBy(role => role.Role.Name)
+            .Select(role => new { Name = role.Key, Count = role.Count() })
+            .ToList();
+
+        if (!Validation.ObjNotEmty(teachers, $"{TextColor.Green}Inga lärare har ett specifikt skolämne{TextColor.Normal}"))
+        {
+            Console.ReadKey();
+            return;
+        }
+
+        foreach (var teacher in teachers)
+        {
+            Console.WriteLine($"{teacher.Name}: {teacher.Count}st");
+        }
+        Console.ReadKey();
+    }
     public void Update()
     {
         throw new NotImplementedException();

@@ -13,6 +13,7 @@ public static class DbFactory
             DBTable.Employee => new EmployeeRepository() as IRepository<T>,
             DBTable.Class => new ClassRepository() as IRepository<T>,
             DBTable.Student => new StudentRepository() as IRepository<T>,
+            DBTable.RoleGroup => new RoleGropeRepository() as IRepository<T>,
             _ => throw new NotImplementedException("Table not implemented"),
         };
     }

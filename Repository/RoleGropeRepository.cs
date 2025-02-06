@@ -1,3 +1,4 @@
+using System.Reflection;
 using DB_labb_3.adapters;
 using DB_labb_3.Interface;
 using DB_labb_3.Maper;
@@ -25,5 +26,17 @@ public class RoleGropeRepository : IRepository<RoleGrope>
         var query = "SELECT * FROM RoleGrope";
         var map = new RoleGropeMap().Map;
         return Ado.Query(query, map);
+    }
+
+    public List<RoleGrope> Get(PropertyInfo columnName, int id)
+    {
+        var query = $"SELECT * FROM RoleGrope WHERE {columnName} = @id";
+        var map = new RoleGropeMap().Map;
+        var parameters = new SqlParameter[]
+        {
+            new SqlParameter("@id", id)
+        };
+
+        return Ado.Query(query, map, parameters);
     }
 }

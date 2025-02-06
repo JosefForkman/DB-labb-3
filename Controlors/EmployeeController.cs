@@ -130,7 +130,11 @@ public class EmployeeController : IController
     public void Show()
     {
         using var db = new SkolaJosefContext();
-        var employees = db.Employees.ToList();
+        var employeeFactroy = DbFactory.GetRepository<Employee>(DBTable.Employee)!;
+        var roleGropeFactroy = DbFactory.GetRepository<RoleGrope>(DBTable.RoleGroup)!;
+        var employees = employeeFactroy.Get();
+
+
 
         if (employees.Count == 0)
         {
@@ -142,7 +146,40 @@ public class EmployeeController : IController
         Console.WriteLine("Anställda");
         foreach (var employee in employees)
         {
-            Console.WriteLine($"{employee.FirstName} {employee.LastName}");
+            var columnName = typeof(RoleGrope).GetProperty("Employee");
+
+            List<RoleGrope> roleGropes = [];
+
+            if (columnName != null)
+            {
+                roleGropes = roleGropeFactroy.Get(columnName, employee.Id);
+            }
+            else
+            {
+                Console.WriteLine($"{TextColor.Red}Column 'Employee' not found in RoleGrope{TextColor.Normal}");
+                Console.ReadKey();
+                return;
+            }
+            var years = DateTime.Now.Year - int.Parse(employee.StartDate?.ToString("yyyy") ?? "0");
+
+            if (employee.StartDate == null)
+            {
+                Console.WriteLine($"{employee.FirstName} {employee.LastName} har ingen anställningsdatum");
+            }
+            else
+            {
+                Console.WriteLine($"{employee.FirstName} {employee.LastName} blev anstäld {employee.StartDate} och har varit anställd i {years} år");
+            }
+
+            if (!Validation.ObjNotEmty(roleGropes, "Inga roller hittades"))
+            {
+                Console.ReadKey();
+                return;
+            }
+            foreach (var roleGrope in employee.RoleGropes)
+            {
+                Console.WriteLine($"- {roleGrope.Role.Name}");
+            }
         }
 
         Console.ReadKey();

@@ -1,3 +1,4 @@
+using System.Reflection;
 using DB_labb_3.adapters;
 using DB_labb_3.Interface;
 using DB_labb_3.Maper;
@@ -29,5 +30,10 @@ public class ClassRepository : IRepository<Class>
         var map = new ClassMap().Map;
 
         return Ado.Query(query, map);
+    }
+
+    public List<Class> Get(PropertyInfo columnName, int id)
+    {
+        throw new NotImplementedException();
     }
 }

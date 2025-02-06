@@ -13,12 +13,12 @@ INSERT INTO role (name) VALUES
 ('Administratör');
 
 -- Employees
-INSERT INTO employee (first_name, last_name) VALUES
-('Anna', 'Svensson'),
-('Erik', 'Johansson'),
-('Maria', 'Andersson'),
-('Oskar', 'Larsson'),
-('Sara', 'Karlsson');
+INSERT INTO employee (first_name, last_name, salary) VALUES
+('Anna', 'Svensson', 30000),
+('Erik', 'Johansson', 32500),
+('Maria', 'Andersson', 25000),
+('Oskar', 'Larsson', 42670),
+('Sara', 'Karlsson', 28480);
 
 -- Role grope
 Use SkolaJosef;

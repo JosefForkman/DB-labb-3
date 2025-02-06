@@ -1,6 +1,7 @@
 using DB_labb_3.Data;
 using DB_labb_3.Interface;
 using DB_labb_3.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace DB_labb_3.Controlors;
 
@@ -26,7 +27,9 @@ public class StudentController : IController
     {
         // var db = Db.Connect();
         using var db = new SkolaJosefContext();
-        var students = db.Students.ToList();
+        var students = db.Students
+            .Include(student => student.Class)
+            .ToList();
 
         if (students.Count == 0)
         {
@@ -35,7 +38,7 @@ public class StudentController : IController
             return;
         }
 
-        var menu = new Menu(new string[] { "Förnamn A-Ö", "Förnamn Ö-A", "Efternamn A-Ö", "Efternamn Ö-A" });
+        var menu = new Menu(["Förnamn A-Ö", "Förnamn Ö-A", "Efternamn A-Ö", "Efternamn Ö-A"]);
 
         Console.WriteLine("Hur vill du sortera eleverna?");
         int selectedOption = menu.show();
@@ -60,7 +63,7 @@ public class StudentController : IController
 
         foreach (var student in students)
         {
-            Console.WriteLine($"{student.FirstName} {student.LastName}");
+            Console.WriteLine($"{student.FirstName} {student.LastName} går i klass {student.Class?.Name ?? "förnuvarande ingen klass"}");
         }
 
         Console.ReadKey();

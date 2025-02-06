@@ -9,7 +9,7 @@ Här följer de funktioner du ska bygga i ditt program.
 
 - [x] Det måste finnas en meny där man kan välja att visa olika data som efterfrågas av skolan. (Console)
 - [x] Hur många lärare jobbar på de olika avdelningarna? (EF)
-- [ ] Visa information om alla elever (t.ex namn, klass och annat som är intressant/relevant i din databas) (EF)
+- [x] Visa information om alla elever (t.ex namn, klass och annat som är intressant/relevant i din databas) (EF)
 - [ ] Visa en lista på alla aktiva kurser (EF)
 - [ ] Skolan vill kunna ta fram en översikt över all personal där det framgår namn och vilka befattningar de har samt hur många år de har arbetat på skolan. Administratören vill också ha möjlighet att spara ner ny personal. (SQL via ADO.Net)
     - [x] namn

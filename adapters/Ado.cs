@@ -33,6 +33,33 @@ public class Ado
     /// <summary>
     /// Execute a query.
     /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="query"></param>
+    /// <param name="map"></param>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    public static List<T> Query<T>(string query, Func<SqlDataReader, T> map, SqlParameter[] parameters)
+    {
+        var list = new List<T>();
+        using var connection = new SqlConnection(ConnectionString);
+        connection.Open();
+
+        using var command = new SqlCommand(query, connection);
+        command.Parameters.AddRange(parameters);
+
+        using var reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            list.Add(map(reader));
+        }
+
+        connection.Close();
+        return list;
+    }
+    /// <summary>
+    /// Execute a query.
+    /// </summary>
     /// <param name="query"></param>
     /// <param name="parameters"></param>
     /// <returns>The last inserted id</returns>

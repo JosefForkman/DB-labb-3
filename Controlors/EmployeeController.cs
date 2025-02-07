@@ -12,16 +12,13 @@ public class EmployeeController : IController
 {
     public void Create()
     {
-        // var db = Db.Connect();
-        using var db = new SkolaJosefContext();
-
         var firstName = Validation.MakeSureNotEmpty("Förnamn: ", "Förnamn");
         var lastName = Validation.MakeSureNotEmpty("Efternamn: ", "Efternamn");
 
-        // var employeeExist = db.Employees.Where(employee => employee.FirstName == firstName && employee.LastName == lastName).FirstOrDefault();
-
-        var employee = DbFactory.GetRepository<Employee>(DBTable.Employee)!;
-        var employeeExist = employee?.Get().Where(employee => employee.FirstName == firstName && employee.LastName == lastName).FirstOrDefault();
+        var employeeFactory = DbFactory.GetRepository<Employee>(DBTable.Employee)!;
+        var roleGropeFactory = DbFactory.GetRepository<RoleGrope>(DBTable.RoleGroup)!;
+        var roleFactroy = DbFactory.GetRepository<Role>(DBTable.Role)!;
+        var employeeExist = employeeFactory?.Get().Where(employee => employee.FirstName == firstName && employee.LastName == lastName).FirstOrDefault();
 
         if (employeeExist != null)
         {
@@ -36,7 +33,7 @@ public class EmployeeController : IController
             LastName = lastName,
         };
 
-        var rolls = db.Roles.OrderBy(role => role.Id).ToList();
+        var rolls = roleFactroy?.Get().OrderBy(role => role.Id).ToList()!;
 
         bool rollIsEmpty = !Validation.ObjNotEmty(rolls, "Inga roller hittades");
 
@@ -51,10 +48,7 @@ public class EmployeeController : IController
 
         var selectedOption = menu.Show(3);
 
-        // db.Employees.Add(newEmployee);
-        newEmployee = employee!.Create(newEmployee);
-
-        // db.SaveChanges();
+        newEmployee = employeeFactory!.Create(newEmployee);
 
         if (newEmployee == null)
         {
@@ -68,14 +62,13 @@ public class EmployeeController : IController
             var role = rolls.FirstOrDefault(role => role.Id == (option + 1)); // +1 because menu retern 0 based index
             if (role != null)
             {
-                db.RoleGropes.Add(new RoleGrope
+                roleGropeFactory.Create(new RoleGrope
                 {
                     EmployeeId = newEmployee.Id,
                     Role = role
                 });
             }
         }
-        db.SaveChanges();
 
         Console.WriteLine($"{TextColor.Green}Anställd tillagd{TextColor.Normal}");
 

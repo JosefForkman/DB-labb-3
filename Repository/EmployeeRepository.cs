@@ -33,7 +33,7 @@ public class EmployeeRepository : IRepository<Employee>
         return Ado.Query(query, map);
     }
 
-    public List<Employee> Get(PropertyInfo columnName, int id)
+    public List<Employee> Get(string columnName, int id)
     {
         throw new NotImplementedException();
     }

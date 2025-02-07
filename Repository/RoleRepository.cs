@@ -21,6 +21,8 @@ public class RoleRepository : IRepository<Role>
 
     public List<Role> Get(string columnName, int id)
     {
-        throw new NotImplementedException();
+        var query = $"SELECT * FROM Role WHERE {columnName} = {id}";
+        var map = new RoleMap().Map;
+        return Ado.Query(query, map);
     }
 }

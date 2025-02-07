@@ -132,9 +132,8 @@ public class EmployeeController : IController
         using var db = new SkolaJosefContext();
         var employeeFactroy = DbFactory.GetRepository<Employee>(DBTable.Employee)!;
         var roleGropeFactroy = DbFactory.GetRepository<RoleGrope>(DBTable.RoleGroup)!;
+        var roleFactroy = DbFactory.GetRepository<Role>(DBTable.Role)!;
         var employees = employeeFactroy.Get();
-
-
 
         if (employees.Count == 0)
         {
@@ -146,20 +145,8 @@ public class EmployeeController : IController
         Console.WriteLine("Anställda");
         foreach (var employee in employees)
         {
-            var columnName = typeof(RoleGrope).GetProperty("Employee");
+            List<RoleGrope> roleGropes = roleGropeFactroy.Get("employee_id", employee.Id);
 
-            List<RoleGrope> roleGropes = [];
-
-            if (columnName != null)
-            {
-                roleGropes = roleGropeFactroy.Get(columnName, employee.Id);
-            }
-            else
-            {
-                Console.WriteLine($"{TextColor.Red}Column 'Employee' not found in RoleGrope{TextColor.Normal}");
-                Console.ReadKey();
-                return;
-            }
             var years = DateTime.Now.Year - int.Parse(employee.StartDate?.ToString("yyyy") ?? "0");
 
             if (employee.StartDate == null)
@@ -176,9 +163,19 @@ public class EmployeeController : IController
                 Console.ReadKey();
                 return;
             }
-            foreach (var roleGrope in employee.RoleGropes)
+            foreach (var roleGrope in roleGropes)
             {
-                Console.WriteLine($"- {roleGrope.Role.Name}");
+                var roles = roleFactroy.Get("id", roleGrope.RoleId);
+                if (!Validation.ObjNotEmty(roles, "Inga roller hittades"))
+                {
+                    Console.ReadKey();
+                    return;
+                }
+
+                foreach (var role in roles)
+                {
+                    Console.WriteLine($"- {role.Name}");
+                }
             }
         }
 

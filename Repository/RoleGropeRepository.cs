@@ -28,9 +28,9 @@ public class RoleGropeRepository : IRepository<RoleGrope>
         return Ado.Query(query, map);
     }
 
-    public List<RoleGrope> Get(PropertyInfo columnName, int id)
+    public List<RoleGrope> Get(string columnName, int id)
     {
-        var query = $"SELECT * FROM RoleGrope WHERE {columnName} = @id";
+        var query = $"SELECT * FROM role_grope WHERE {columnName} = @id";
         var map = new RoleGropeMap().Map;
         var parameters = new SqlParameter[]
         {

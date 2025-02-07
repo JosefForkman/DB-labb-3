@@ -32,7 +32,7 @@ public class StudentRepository : IRepository<Student>
         return Ado.Query(query, map);
     }
 
-    public List<Student> Get(PropertyInfo columnName, int id)
+    public List<Student> Get(string columnName, int id)
     {
         throw new NotImplementedException();
     }

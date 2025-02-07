@@ -1,5 +1,3 @@
-using System.Reflection;
-
 namespace DB_labb_3.Interface;
 
 public interface IRepository<T>
@@ -15,7 +13,7 @@ public interface IRepository<T>
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    List<T> Get(PropertyInfo columnName, int id);
+    List<T> Get(string columnName, int id);
 
     /// <summary>
     /// Create a new entity in the database

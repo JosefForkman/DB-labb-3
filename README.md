@@ -11,13 +11,13 @@ Här följer de funktioner du ska bygga i ditt program.
 - [x] Hur många lärare jobbar på de olika avdelningarna? (EF)
 - [x] Visa information om alla elever (t.ex namn, klass och annat som är intressant/relevant i din databas) (EF)
 - [x] Visa en lista på alla aktiva kurser (EF)
-- [ ] Skolan vill kunna ta fram en översikt över all personal där det framgår namn och vilka befattningar de har samt hur många år de har arbetat på skolan. Administratören vill också ha möjlighet att spara ner ny personal. (SQL via ADO.Net)
+- [x] Skolan vill kunna ta fram en översikt över all personal där det framgår namn och vilka befattningar de har samt hur många år de har arbetat på skolan. Administratören vill också ha möjlighet att spara ner ny personal. (SQL via ADO.Net)
     - [x] namn
     - [x] befattning
     - [x] anställningsdatum
     - [x] antal år på skolan
-    - [ ] skapa ny personal
-    - [ ] använd ADO.Net
+    - [x] skapa ny personal
+    - [x] använd ADO.Net
 - [ ] Vi vill kunna ta fram alla betyg för en elev i varje kurs/ämne de läst och vi vill kunna se vilken lärare som satt betygen, vi vill också se vilka datum betygen satts. (SQL via ADO.Net)
     - [ ] Se betyg för en specifik elev i varje kurs/ämne
     - [ ] Se vilken lärare som satt betyget

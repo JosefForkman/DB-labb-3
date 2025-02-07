@@ -1,5 +1,8 @@
 using DB_labb_3.Data;
+using DB_labb_3.Enums;
+using DB_labb_3.Factory;
 using DB_labb_3.Interface;
+using DB_labb_3.Models;
 using DB_labb_3.Utils;
 using Microsoft.EntityFrameworkCore;
 
@@ -68,7 +71,41 @@ public class StudentController : IController
 
         Console.ReadKey();
     }
+    public void ShowGrades()
+    {
+        var classFactory = DbFactory.GetRepository<Class>(DBTable.Class)!;
+        var studentFactory = DbFactory.GetRepository<Student>(DBTable.Student)!;
 
+        var classes = classFactory.Get().Select(c => c.Name).ToList();
+
+        if (!Validation.ObjNotEmty(classes, "Inga klasser hittades"))
+        {
+            Console.ReadKey();
+            return;
+        }
+
+        var menu = new SelectOneOrMore(["Klasser"], classes);
+
+        var selectedOption = menu.Show()[0] + 1;
+
+        var students = studentFactory.Get("class_id", selectedOption).Select(s => $"{s.FirstName} {s.LastName}").ToList();
+
+        if (!Validation.ObjNotEmty(students, "Inga elever hittades"))
+        {
+            Console.ReadKey();
+            return;
+        }
+
+        var studentMenu = new SelectOneOrMore(["Elever"], students);
+
+        var selectedStudent = studentMenu.Show()[0] + 1;
+
+        var student = studentFactory.Get("id", selectedStudent).First();
+
+        
+
+        Console.ReadKey();
+    }
     public void Update()
     {
         throw new NotImplementedException();

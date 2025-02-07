@@ -34,6 +34,14 @@ public class StudentRepository : IRepository<Student>
 
     public List<Student> Get(string columnName, int id)
     {
-        throw new NotImplementedException();
+        var query = $"SELECT * FROM Student WHERE {columnName} = @id";
+        var parameters = new SqlParameter[]
+        {
+            new SqlParameter("@id", id)
+        };
+        
+        var map = new StudentMap().Map;
+
+        return Ado.Query(query, map, parameters);
     }
 }

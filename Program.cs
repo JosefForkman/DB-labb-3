@@ -1,5 +1,4 @@
 ﻿using DB_labb_3.Controlors;
-using DB_labb_3.Interface;
 using DB_labb_3.Utils;
 
 namespace DB_labb_3
@@ -8,7 +7,18 @@ namespace DB_labb_3
     {
         static void Main(string[] args)
         {
-            var menu = new Menu(["Visa alla elever", "Visa en spesifik klass", "Visa alla pågående classer", "Visa alla arbetare", "Visa antal anstälda", "Lägg till arbetare", "Ta bort arbetare", "Avsluta"]);
+            string[] menuOptions = [
+                    "Visa alla elever",
+                    "Visa en spesifik klass",
+                    "Visa alla pågående classer",
+                    "Visa betyg för en elev",
+                    "Visa alla arbetare",
+                    "Visa antal anstälda",
+                    "Lägg till arbetare",
+                    "Ta bort arbetare",
+                    "Avsluta"
+                ];
+            var menu = new Menu(menuOptions);
 
             var studentController = new StudentController();
             var classController = new ClassController();
@@ -32,18 +42,21 @@ namespace DB_labb_3
                         classSchemaController.Show();
                         break;
                     case 3:
-                        employeeController.Show();
+                        studentController.ShowGrades();
                         break;
                     case 4:
-                        employeeController.ShowCount();
+                        employeeController.Show();
                         break;
                     case 5:
-                        employeeController.Create();
+                        employeeController.ShowCount();
                         break;
                     case 6:
-                        employeeController.Destroy();
+                        employeeController.Create();
                         break;
                     case 7:
+                        employeeController.Destroy();
+                        break;
+                    case 8:
                         isRunning = false;
                         break;
                 }

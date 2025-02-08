@@ -13,11 +13,11 @@ public class GradeMap : IMap<Grade>
         {
             Id = (int)record["Id"],
             Level = (string)record["Level"],
-            CreatedAt = (DateTime)record["CreatedAt"],
-            UpdatedAt = (DateTime)record["UpdatedAt"],
-            SubjectId = (int)record["SubjectId"],
-            EmployeeId = (int)record["EmployeeId"],
-            StudentId = (int)record["StudentId"],
+            CreatedAt = (DateTime)record["created_at"],
+            UpdatedAt = (DateTime)record["updated_at"],
+            SubjectId = (int)record["subject_Id"],
+            EmployeeId = (int)record["employee_Id"],
+            StudentId = (int)record["student_Id"],
         };
     }
 }

@@ -15,6 +15,8 @@ public static class DbFactory
             DBTable.Role => new RoleRepository() as IRepository<T>,
             DBTable.RoleGroup => new RoleGropeRepository() as IRepository<T>,
             DBTable.Student => new StudentRepository() as IRepository<T>,
+            DBTable.Subject => new SubjectRepository() as IRepository<T>,
+            DBTable.Grade => new GradeRepository() as IRepository<T>,
             _ => throw new NotImplementedException("Table not implemented"),
         };
     }

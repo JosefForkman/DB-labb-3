@@ -75,6 +75,9 @@ public class StudentController : IController
     {
         var classFactory = DbFactory.GetRepository<Class>(DBTable.Class)!;
         var studentFactory = DbFactory.GetRepository<Student>(DBTable.Student)!;
+        var employeeFactory = DbFactory.GetRepository<Employee>(DBTable.Employee)!;
+        var gradeFactory = DbFactory.GetRepository<Grade>(DBTable.Grade)!;
+        var subjectFactory = DbFactory.GetRepository<Subject>(DBTable.Subject)!;
 
         var classes = classFactory.Get().Select(c => c.Name).ToList();
 
@@ -102,7 +105,22 @@ public class StudentController : IController
 
         var student = studentFactory.Get("id", selectedStudent).First();
 
-        
+        var grades = gradeFactory.Get("student_id", student.Id).OrderByDescending(grade => grade.CreatedAt).ToList();
+
+        if (!Validation.ObjNotEmty(grades, "Inga betyg hittades"))
+        {
+            Console.ReadKey();
+            return;
+        }
+
+        Console.Clear();
+        Console.WriteLine($"{student.FirstName} {student.LastName} har följande betyg:");
+        foreach (var grade in grades)
+        {
+            var subject = subjectFactory.Get("id", grade.SubjectId).First();
+            var employee = employeeFactory.Get("id", grade.EmployeeId).First();
+            Console.WriteLine($"- {grade.Level} i {subject.Name} av {employee.FirstName} {employee.LastName} den {grade.CreatedAt.ToShortDateString()}");
+        }
 
         Console.ReadKey();
     }

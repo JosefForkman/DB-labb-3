@@ -35,6 +35,13 @@ public class EmployeeRepository : IRepository<Employee>
 
     public List<Employee> Get(string columnName, int id)
     {
-        throw new NotImplementedException();
+        var query = $"SELECT * FROM Employee WHERE {columnName} = @id";
+        var parameters = new SqlParameter[]
+        {
+            new SqlParameter("@id", id)
+        };
+        var map = new EmployeeMap().Map;
+
+        return Ado.Query(query, map, parameters);
     }
 }

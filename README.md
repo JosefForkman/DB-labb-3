@@ -18,10 +18,10 @@ Här följer de funktioner du ska bygga i ditt program.
     - [x] antal år på skolan
     - [x] skapa ny personal
     - [x] använd ADO.Net
-- [ ] Vi vill kunna ta fram alla betyg för en elev i varje kurs/ämne de läst och vi vill kunna se vilken lärare som satt betygen, vi vill också se vilka datum betygen satts. (SQL via ADO.Net)
-    - [ ] Se betyg för en specifik elev i varje kurs/ämne
-    - [ ] Se vilken lärare som satt betyget
-    - [ ] Se datum för betyget
+- [x] Vi vill kunna ta fram alla betyg för en elev i varje kurs/ämne de läst och vi vill kunna se vilken lärare som satt betygen, vi vill också se vilka datum betygen satts. (SQL via ADO.Net)
+    - [x] Se betyg för en specifik elev i varje kurs/ämne
+    - [x] Se vilken lärare som satt betyget
+    - [x] Se datum för betyget
 - [ ] Hur mycket betalar respektive avdelning ut i lön varje månad? (SQL via ADO.Net)
     - [ ] Lönekostnad per avdelning
 - [ ] Hur mycket är medellönen för de olika avdelningarna? (SQL via ADO.Net)

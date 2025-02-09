@@ -22,10 +22,10 @@ Här följer de funktioner du ska bygga i ditt program.
     - [x] Se betyg för en specifik elev i varje kurs/ämne
     - [x] Se vilken lärare som satt betyget
     - [x] Se datum för betyget
-- [ ] Hur mycket betalar respektive avdelning ut i lön varje månad? (SQL via ADO.Net)
-    - [ ] Lönekostnad per avdelning
-- [ ] Hur mycket är medellönen för de olika avdelningarna? (SQL via ADO.Net)
-    - [ ] Medellön per avdelning
+- [x] Hur mycket betalar respektive avdelning ut i lön varje månad? (SQL via ADO.Net)
+    - [x] Lönekostnad per avdelning
+- [x] Hur mycket är medellönen för de olika avdelningarna? (SQL via ADO.Net)
+    - [x] Medellön per avdelning
 - [ ] Skapa en Stored Procedure som tar emot ett Id och returnerar viktig information om den elev som är registrerad med aktuellt Id. (SQL via ADO.Net)
     - [ ] Stored Procedure
     - [ ] tar emot Id

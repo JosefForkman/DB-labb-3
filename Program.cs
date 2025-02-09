@@ -16,6 +16,7 @@ namespace DB_labb_3
                     "Visa antal anstälda",
                     "Lägg till arbetare",
                     "Ta bort arbetare",
+                    "Visa avdelningars lön och medellön",
                     "Avsluta"
                 ];
             var menu = new Menu(menuOptions);
@@ -24,6 +25,7 @@ namespace DB_labb_3
             var classController = new ClassController();
             var classSchemaController = new ClassSchemaController();
             var employeeController = new EmployeeController();
+            var roleGropeControlor = new RoleGropeControlor();
 
             bool isRunning = true;
             while (isRunning)
@@ -57,6 +59,9 @@ namespace DB_labb_3
                         employeeController.Destroy();
                         break;
                     case 8:
+                        roleGropeControlor.ShowDepartmentsSalary();
+                        break;
+                    case 9:
                         isRunning = false;
                         break;
                 }

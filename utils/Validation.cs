@@ -37,4 +37,21 @@ public static class Validation
         }
         return true;
     }
+
+    /// <summary>
+    /// Make sure object is not null
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj"></param>
+    /// <param name="message"></param>
+    /// <returns></returns>
+    public static bool ObjNotNull<T>(T obj, string message)
+    {
+        if (obj == null)
+        {
+            Console.WriteLine($"{TextColor.Red}{message}{TextColor.Normal}");
+            return false;
+        }
+        return true;
+    }
 }

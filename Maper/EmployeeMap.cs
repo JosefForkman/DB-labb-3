@@ -13,6 +13,7 @@ public class EmployeeMap : IMap<Employee>
             Id = (int)record["id"],
             FirstName = (string)record["first_name"],
             LastName = (string)record["last_name"],
+            Salary = (decimal?)record["salary"]
         };
     }
 }

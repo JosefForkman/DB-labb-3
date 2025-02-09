@@ -11,7 +11,7 @@ public class RoleGropeRepository : IRepository<RoleGrope>
 {
     public RoleGrope Create(RoleGrope entity)
     {
-        var query = "INSERT INTO RoleGrope (employee_id, role_id) VALUES (@employee_id, @role_id);";
+        var query = "INSERT INTO role_grope (employee_id, role_id) VALUES (@employee_id, @role_id);";
         var parameters = new SqlParameter[]
         {
             new SqlParameter("@employee_id", entity.EmployeeId),
@@ -23,7 +23,7 @@ public class RoleGropeRepository : IRepository<RoleGrope>
 
     public List<RoleGrope> Get()
     {
-        var query = "SELECT * FROM RoleGrope";
+        var query = "SELECT * FROM role_grope";
         var map = new RoleGropeMap().Map;
         return Ado.Query(query, map);
     }

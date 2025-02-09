@@ -27,9 +27,10 @@ Här följer de funktioner du ska bygga i ditt program.
 - [x] Hur mycket är medellönen för de olika avdelningarna? (SQL via ADO.Net)
     - [x] Medellön per avdelning
 - [ ] Skapa en Stored Procedure som tar emot ett Id och returnerar viktig information om den elev som är registrerad med aktuellt Id. (SQL via ADO.Net)
-    - [ ] Stored Procedure
-    - [ ] tar emot Id
-    - [ ] returnerar information om elev
+    - [x] Stored Procedure
+    - [x] tar emot Id
+    - [x] returnerar information om elev
+    - [x] använd ADO.Net
 - [ ] Sätt betyg på en elev genom att använda Transactions ifall något går fel. (SQL via ADO.Net)
     - [ ] Sätt betyg
     - [ ] Använd Transactions

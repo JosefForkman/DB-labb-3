@@ -9,6 +9,7 @@ namespace DB_labb_3
         {
             string[] menuOptions = [
                     "Visa alla elever",
+                    "Visa information om en elev",
                     "Visa en spesifik klass",
                     "Visa alla pågående classer",
                     "Visa betyg för en elev",
@@ -38,30 +39,33 @@ namespace DB_labb_3
                         studentController.Show();
                         break;
                     case 1:
-                        classController.Index();
+                        studentController.Index();
                         break;
                     case 2:
-                        classSchemaController.Show();
+                        classController.Index();
                         break;
                     case 3:
-                        studentController.ShowGrades();
+                        classSchemaController.Show();
                         break;
                     case 4:
-                        employeeController.Show();
+                        studentController.ShowGrades();
                         break;
                     case 5:
-                        employeeController.ShowCount();
+                        employeeController.Show();
                         break;
                     case 6:
-                        employeeController.Create();
+                        employeeController.ShowCount();
                         break;
                     case 7:
-                        employeeController.Destroy();
+                        employeeController.Create();
                         break;
                     case 8:
-                        roleGropeControlor.ShowDepartmentsSalary();
+                        employeeController.Destroy();
                         break;
                     case 9:
+                        roleGropeControlor.ShowDepartmentsSalary();
+                        break;
+                    case 10:
                         isRunning = false;
                         break;
                 }

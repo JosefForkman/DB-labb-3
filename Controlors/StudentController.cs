@@ -1,9 +1,13 @@
+using System.Data;
+using DB_labb_3.adapters;
 using DB_labb_3.Data;
 using DB_labb_3.Enums;
 using DB_labb_3.Factory;
 using DB_labb_3.Interface;
+using DB_labb_3.Maper;
 using DB_labb_3.Models;
 using DB_labb_3.Utils;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace DB_labb_3.Controlors;
@@ -23,7 +27,56 @@ public class StudentController : IController
 
     public void Index()
     {
-        throw new NotImplementedException();
+        var classFactory = DbFactory.GetRepository<Class>(DBTable.Class)!;
+        var studentFactory = DbFactory.GetRepository<Student>(DBTable.Student)!;
+
+        var classes = classFactory.Get().Select(c => c.Name).ToList();
+
+        if (!Validation.ObjNotEmty(classes, "Inga klasser hittades"))
+        {
+            Console.ReadKey();
+            return;
+        }
+
+        var menu = new SelectOneOrMore(["Klasser"], classes);
+
+        var selectedOption = menu.Show()[0] + 1;
+
+        var students = studentFactory.Get("class_id", selectedOption).ToList();
+        var studentFullNames = students.Select(s => $"{s.FirstName} {s.LastName}").ToList();
+
+        if (!Validation.ObjNotEmty(studentFullNames, "Inga elever hittades"))
+        {
+            Console.ReadKey();
+            return;
+        }
+
+        var studentMenu = new SelectOneOrMore(["Elever"], studentFullNames);
+
+        var selectedStudent = studentMenu.Show()[0];
+
+        var student = students[selectedStudent];
+
+        Console.WriteLine($"Du valde elev {student.FirstName} {student.LastName} som går i klass {classes[selectedOption]}");
+
+        var query = $"getStudentInfo";
+
+        var parameters = new SqlParameter[]
+        {
+            new SqlParameter("@student_id", 1)
+        };
+
+        var map = new StudentMap().StoreProcedureMap;
+
+        var studentInfo = Ado.Query(query, map, parameters, CommandType.StoredProcedure).First();
+
+        Console.WriteLine($"Elev: {studentInfo.StudentName}");
+        Console.WriteLine($"Lärare: {studentInfo.TeacherName}");
+        Console.WriteLine($"Klass: {studentInfo.ClassName}");
+        // Console.WriteLine($"Start: {studentInfo.Start.ToShortDateString()}");
+        // Console.WriteLine($"End: {studentInfo.End.ToShortDateString()}");
+
+        Console.ReadKey();
     }
 
     public void Show()

@@ -1,3 +1,4 @@
+using System.Data;
 using Microsoft.Data.SqlClient;
 
 namespace DB_labb_3.adapters;
@@ -12,14 +13,16 @@ public class Ado
     /// <typeparam name="T"></typeparam>
     /// <param name="query"></param>
     /// <param name="map"></param>
+    /// <param name="commandType"></param>
     /// <returns></returns>
-    public static List<T> Query<T>(string query, Func<SqlDataReader, T> map)
+    public static List<T> Query<T>(string query, Func<SqlDataReader, T> map, CommandType commandType = CommandType.Text)
     {
         var list = new List<T>();
         using var connection = new SqlConnection(ConnectionString);
         connection.Open();
 
         using var command = new SqlCommand(query, connection);
+        command.CommandType = commandType;
         using var reader = command.ExecuteReader();
 
         while (reader.Read())
@@ -38,20 +41,24 @@ public class Ado
     /// <param name="map"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public static List<T> Query<T>(string query, Func<SqlDataReader, T> map, SqlParameter[] parameters)
+    public static List<T> Query<T>(string query, Func<SqlDataReader, T> map, SqlParameter[] parameters, CommandType commandType = CommandType.Text)
     {
         var list = new List<T>();
         using var connection = new SqlConnection(ConnectionString);
         connection.Open();
 
         using var command = new SqlCommand(query, connection);
+        command.CommandType = commandType;
         command.Parameters.AddRange(parameters);
 
         using var reader = command.ExecuteReader();
 
         while (reader.Read())
         {
-            list.Add(map(reader));
+            if (reader.HasRows)
+            {
+                list.Add(map(reader));
+            }
         }
 
         connection.Close();
@@ -63,12 +70,13 @@ public class Ado
     /// <param name="query"></param>
     /// <param name="parameters"></param>
     /// <returns>The last inserted id</returns>
-    public static int Query(string query, SqlParameter[] parameters)
+    public static int Query(string query, SqlParameter[] parameters, CommandType commandType = CommandType.Text)
     {
         using var connection = new SqlConnection(ConnectionString);
         connection.Open();
 
         using var command = new SqlCommand(query + "; SELECT SCOPE_IDENTITY()", connection);
+        command.CommandType = commandType;
         command.Parameters.AddRange(parameters);
 
         // Execute the query and get the last inserted id

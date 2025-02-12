@@ -57,24 +57,20 @@ public class StudentController : IController
 
         var student = students[selectedStudent];
 
-        Console.WriteLine($"Du valde elev {student.FirstName} {student.LastName} som går i klass {classes[selectedOption]}");
-
         var query = $"getStudentInfo";
 
         var parameters = new SqlParameter[]
         {
-            new SqlParameter("@student_id", 1)
+            new SqlParameter("@StudentID", student.Id)
         };
 
         var map = new StudentMap().StoreProcedureMap;
 
         var studentInfo = Ado.Query(query, map, parameters, CommandType.StoredProcedure).First();
 
-        Console.WriteLine($"Elev: {studentInfo.StudentName}");
-        Console.WriteLine($"Lärare: {studentInfo.TeacherName}");
-        Console.WriteLine($"Klass: {studentInfo.ClassName}");
-        // Console.WriteLine($"Start: {studentInfo.Start.ToShortDateString()}");
-        // Console.WriteLine($"End: {studentInfo.End.ToShortDateString()}");
+        Console.Clear();
+        Console.WriteLine($"{studentInfo.StudentName} går i klass {studentInfo.ClassName} och har {studentInfo.TeacherName} som lärare.");
+        Console.WriteLine($"Klassen startade {studentInfo.Start.ToShortDateString()} och slutar {studentInfo.End.ToShortDateString()}");
 
         Console.ReadKey();
     }

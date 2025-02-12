@@ -23,8 +23,8 @@ public class StudentMap : IMap<Student>
             StudentName = (string)record["student_name"],
             TeacherName = (string)record["teacher_name"],
             ClassName = (string)record["class_name"],
-            Start = (string)record["start"],
-            End = (string)record["end"],
+            Start = (DateTime)record["start"],
+            End = (DateTime)record["end"],
         };
     }
 };
@@ -34,8 +34,8 @@ public class StoreProcedure
     public string StudentName { get; set; }
     public string TeacherName { get; set; }
     public string ClassName { get; set; }
-    public string Start { get; set; }
-    public string End { get; set; }
+    public DateTime Start { get; set; }
+    public DateTime End { get; set; }
 }
 
 

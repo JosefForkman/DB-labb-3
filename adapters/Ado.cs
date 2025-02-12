@@ -40,6 +40,7 @@ public class Ado
     /// <param name="query"></param>
     /// <param name="map"></param>
     /// <param name="parameters"></param>
+    /// <param name="commandType"></param>
     /// <returns></returns>
     public static List<T> Query<T>(string query, Func<SqlDataReader, T> map, SqlParameter[] parameters, CommandType commandType = CommandType.Text)
     {
@@ -64,11 +65,13 @@ public class Ado
         connection.Close();
         return list;
     }
+
     /// <summary>
     /// Execute a query.
     /// </summary>
     /// <param name="query"></param>
     /// <param name="parameters"></param>
+    /// <param name="commandType"></param>
     /// <returns>The last inserted id</returns>
     public static int Query(string query, SqlParameter[] parameters, CommandType commandType = CommandType.Text)
     {

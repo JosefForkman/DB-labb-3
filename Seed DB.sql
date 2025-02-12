@@ -149,3 +149,20 @@ VALUES
 ('A', 3, 3, 4, DATEADD(DAY, -FLOOR(RAND() * 1826), GETDATE()), GETDATE()),
 ('D', 4, 4, 4, DATEADD(DAY, -FLOOR(RAND() * 1826), GETDATE()), GETDATE()),
 ('F', 5, 5, 4, DATEADD(DAY, -FLOOR(RAND() * 1826), GETDATE()), GETDATE());
+
+-- Stored procedure
+-- Check if the procedure exists before creating it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'getStudentInfo')
+BEGIN
+    -- Create the procedure
+    EXEC( 'CREATE PROCEDURE getStudentInfo
+    @StudentID INT
+    AS 
+    BEGIN
+    SELECT student.first_name + '' '' + student.last_name as ''student_name'', employee.first_name + '' '' + employee.last_name as ''teacher_name'', class.name as ''class_name'', class.start_date as ''start'', class.end_date as ''end'' FROM dbo.student 
+    JOIN dbo.class ON student.class_id = class.id
+    JOIN dbo.employee ON class.mentor_id = employee.id
+    WHERE student.id = @StudentID
+    END');
+    PRINT 'Procedure getStudentInfo created';
+END;

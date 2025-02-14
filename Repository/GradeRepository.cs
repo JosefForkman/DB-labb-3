@@ -1,3 +1,4 @@
+using System.Data;
 using DB_labb_3.adapters;
 using DB_labb_3.Interface;
 using DB_labb_3.Maper;
@@ -10,7 +11,24 @@ public class GradeRepository : IRepository<Grade>
 {
     public Grade Create(Grade entity)
     {
-        throw new NotImplementedException();
+        var SQL = "setStudentGrades";
+        var Parameters = new SqlParameter[]
+        {
+            new SqlParameter("@level", entity.Level),
+            new SqlParameter("@student_id", entity.StudentId),
+            new SqlParameter("@employee_id", entity.EmployeeId),
+            new SqlParameter("@subject_id", entity.SubjectId),
+        };
+        var GradeId = Ado.Query(SQL, Parameters, CommandType.StoredProcedure);
+
+        if (GradeId == 0)
+        {
+            return new Grade();
+        }
+        
+        var grade = Get("id", GradeId).First();
+
+        return grade;
     }
 
     public List<Grade> Get()

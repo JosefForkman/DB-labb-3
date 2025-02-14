@@ -13,6 +13,7 @@ namespace DB_labb_3
                     "Visa en spesifik klass",
                     "Visa alla pågående classer",
                     "Visa betyg för en elev",
+                    "Lägg till betyg för en elev",
                     "Visa alla arbetare",
                     "Visa antal anstälda",
                     "Lägg till arbetare",
@@ -27,6 +28,7 @@ namespace DB_labb_3
             var classSchemaController = new ClassSchemaController();
             var employeeController = new EmployeeController();
             var roleGropeControlor = new RoleGropeControlor();
+            var gradeControlors = new gradeControlors();
 
             bool isRunning = true;
             while (isRunning)
@@ -51,21 +53,24 @@ namespace DB_labb_3
                         studentController.ShowGrades();
                         break;
                     case 5:
-                        employeeController.Show();
+                        gradeControlors.Create();
                         break;
                     case 6:
-                        employeeController.ShowCount();
+                        employeeController.Show();
                         break;
                     case 7:
-                        employeeController.Create();
+                        employeeController.ShowCount();
                         break;
                     case 8:
-                        employeeController.Destroy();
+                        employeeController.Create();
                         break;
                     case 9:
-                        roleGropeControlor.ShowDepartmentsSalary();
+                        employeeController.Destroy();
                         break;
                     case 10:
+                        roleGropeControlor.ShowDepartmentsSalary();
+                        break;
+                    case 11:
                         isRunning = false;
                         break;
                 }

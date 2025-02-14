@@ -4,10 +4,10 @@ use SkolaJosef
 INSERT INTO role (name) VALUES
 ('Lärare'),
 ('Matematik'),
-('Svenska Lärare'),
-('Engelska Lärare'),
-('Biologi Lärare'),
-('Fysik Lärare'),
+('Svenska'),
+('Engelska'),
+('Biologi'),
+('Fysik'),
 ('Rektor'),
 ('Vaktmästare'),
 ('Administratör');
@@ -155,14 +155,44 @@ VALUES
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'getStudentInfo')
 BEGIN
     -- Create the procedure
-    EXEC( 'CREATE PROCEDURE getStudentInfo
-    @StudentID INT
-    AS 
-    BEGIN
-    SELECT student.first_name + '' '' + student.last_name as ''student_name'', employee.first_name + '' '' + employee.last_name as ''teacher_name'', class.name as ''class_name'', class.start_date as ''start'', class.end_date as ''end'' FROM dbo.student 
-    JOIN dbo.class ON student.class_id = class.id
-    JOIN dbo.employee ON class.mentor_id = employee.id
-    WHERE student.id = @StudentID
-    END');
+    EXEC('
+        CREATE PROCEDURE getStudentInfo
+            @StudentID INT
+        AS 
+        BEGIN
+            SELECT student.first_name + '' '' + student.last_name as ''student_name'', employee.first_name + '' '' + employee.last_name as ''teacher_name'', class.name as ''class_name'', class.start_date as ''start'', class.end_date as ''end'' FROM dbo.student 
+                JOIN dbo.class ON student.class_id = class.id
+                JOIN dbo.employee ON class.mentor_id = employee.id
+            WHERE student.id = @StudentID
+        END'
+    );
     PRINT 'Procedure getStudentInfo created';
 END;
+
+-- Check if the procedure exists before creating it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'setStudentGrades')
+BEGIN
+    -- Create the procedure 
+    EXEC('
+        CREATE PROCEDURE setStudentGrades
+            @level NVARCHAR(1),
+            @student_id INT,
+            @employee_id INT,
+            @subject_id INT
+        AS
+        BEGIN
+            BEGIN TRY
+            BEGIN TRANSACTION 
+            INSERT INTO dbo.grade (level, student_id, employee_id, subject_id) 
+                VALUES (@level, @student_id, @employee_id, @subject_id);
+            COMMIT TRANSACTION
+            END TRY
+            BEGIN CATCH
+                ROLLBACK TRANSACTION
+            END CATCH
+        END
+    ');
+    PRINT 'Procedure setStudentGrades created';
+END;
+
+

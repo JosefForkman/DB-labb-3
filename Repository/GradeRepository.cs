@@ -21,7 +21,7 @@ public class GradeRepository : IRepository<Grade>
         };
         var GradeId = Ado.Query(SQL, Parameters, CommandType.StoredProcedure);
 
-        if (GradeId == 0)
+        if (GradeId == -1)
         {
             return new Grade();
         }

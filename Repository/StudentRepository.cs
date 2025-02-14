@@ -19,9 +19,16 @@ public class StudentRepository : IRepository<Student>
             new SqlParameter( "@PersonalCodeNumber", entity.PersonalCodeNumber ),
         };
 
-        Ado.Query(query, parameters);
+        var studentId = Ado.Query(query, parameters);
 
-        return entity;
+        if (studentId == -1)
+        {
+            return new Student();
+        }
+
+        var student = Get().First(student => student.Id == studentId);
+
+        return student;
     }
 
     public List<Student> Get()

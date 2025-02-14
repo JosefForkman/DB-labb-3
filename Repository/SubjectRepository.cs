@@ -1,4 +1,3 @@
-using System;
 using DB_labb_3.adapters;
 using DB_labb_3.Interface;
 using DB_labb_3.Maper;
@@ -16,7 +15,10 @@ public class SubjectRepository : IRepository<Subject>
 
     public List<Subject> Get()
     {
-        throw new NotImplementedException();
+        var query = "SELECT * FROM Subject";
+        var map = new SubjectMap().Map;
+
+        return Ado.Query(query, map);
     }
 
     public List<Subject> Get(string columnName, int id)

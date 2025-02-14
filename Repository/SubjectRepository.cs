@@ -1,4 +1,3 @@
-using System;
 using DB_labb_3.adapters;
 using DB_labb_3.Interface;
 using DB_labb_3.Maper;

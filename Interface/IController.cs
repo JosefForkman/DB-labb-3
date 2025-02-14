@@ -1,5 +1,3 @@
-using System;
-
 namespace DB_labb_3.Interface;
 
 public interface IController

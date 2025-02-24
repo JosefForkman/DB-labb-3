@@ -5,6 +5,15 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"mounts": [
+		"source=~/.ssh,target=/home/vscode/.ssh,type=bind"
+	],
+	"runArgs": [
+		"--env", "SSH_AUTH_SOCK=/ssh-agent",
+		"--mount", "type=volume,source=ssh-agent,target=/ssh-agent"
+	],
+	
+
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},

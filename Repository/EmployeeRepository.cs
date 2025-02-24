@@ -18,9 +18,14 @@ public class EmployeeRepository : IRepository<Employee>
             new SqlParameter( "@last_name", entity.LastName ),
         };
 
-        int lastInsertedID = Ado.Query(query, parameters);
+        int employeeId = Ado.Query(query, parameters);
 
-        var employee = Get().First(employee => employee.Id == lastInsertedID);
+        if (employeeId == -1)
+        {
+            return new Employee();
+        }
+
+        var employee = Get().First(employee => employee.Id == employeeId);
 
         return employee;
     }

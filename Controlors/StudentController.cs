@@ -27,41 +27,19 @@ public class StudentController : IController
 
     public void Index()
     {
-        var classFactory = DbFactory.GetRepository<Class>(DBTable.Class)!;
-        var studentFactory = DbFactory.GetRepository<Student>(DBTable.Student)!;
+        var student = Helpers.GetStudentFromClass();
 
-        var classes = classFactory.Get().Select(c => c.Name).ToList();
-
-        if (!Validation.ObjNotEmty(classes, "Inga klasser hittades"))
+        if (!Validation.ObjNotNull(student, "Eleven finns inte"))
         {
             Console.ReadKey();
             return;
         }
-
-        var menu = new SelectOneOrMore(["Klasser"], classes);
-
-        var selectedOption = menu.Show()[0] + 1;
-
-        var students = studentFactory.Get("class_id", selectedOption).ToList();
-        var studentFullNames = students.Select(s => $"{s.FirstName} {s.LastName}").ToList();
-
-        if (!Validation.ObjNotEmty(studentFullNames, "Inga elever hittades"))
-        {
-            Console.ReadKey();
-            return;
-        }
-
-        var studentMenu = new SelectOneOrMore(["Elever"], studentFullNames);
-
-        var selectedStudent = studentMenu.Show()[0];
-
-        var student = students[selectedStudent];
 
         var query = $"getStudentInfo";
 
         var parameters = new SqlParameter[]
         {
-            new SqlParameter("@StudentID", student.Id)
+            new SqlParameter("@StudentID", student!.Id)
         };
 
         var map = new StudentMap().StoreProcedureMap;
@@ -122,39 +100,19 @@ public class StudentController : IController
     }
     public void ShowGrades()
     {
-        var classFactory = DbFactory.GetRepository<Class>(DBTable.Class)!;
-        var studentFactory = DbFactory.GetRepository<Student>(DBTable.Student)!;
         var employeeFactory = DbFactory.GetRepository<Employee>(DBTable.Employee)!;
         var gradeFactory = DbFactory.GetRepository<Grade>(DBTable.Grade)!;
         var subjectFactory = DbFactory.GetRepository<Subject>(DBTable.Subject)!;
 
-        var classes = classFactory.Get().Select(c => c.Name).ToList();
+        var student = Helpers.GetStudentFromClass();
 
-        if (!Validation.ObjNotEmty(classes, "Inga klasser hittades"))
+        if (!Validation.ObjNotNull(student, "Eleven finns inte"))
         {
             Console.ReadKey();
             return;
         }
 
-        var menu = new SelectOneOrMore(["Klasser"], classes);
-
-        var selectedOption = menu.Show()[0] + 1;
-
-        var students = studentFactory.Get("class_id", selectedOption).Select(s => $"{s.FirstName} {s.LastName}").ToList();
-
-        if (!Validation.ObjNotEmty(students, "Inga elever hittades"))
-        {
-            Console.ReadKey();
-            return;
-        }
-
-        var studentMenu = new SelectOneOrMore(["Elever"], students);
-
-        var selectedStudent = studentMenu.Show()[0] + 1;
-
-        var student = studentFactory.Get("id", selectedStudent).First();
-
-        var grades = gradeFactory.Get("student_id", student.Id).OrderByDescending(grade => grade.CreatedAt).ToList();
+        var grades = gradeFactory.Get("student_id", student!.Id).OrderByDescending(grade => grade.CreatedAt).ToList();
 
         if (!Validation.ObjNotEmty(grades, "Inga betyg hittades"))
         {

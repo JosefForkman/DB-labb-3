@@ -20,8 +20,16 @@ public class ClassRepository : IRepository<Class>
             new SqlParameter("@mentor_id", entity.MentorId)
         };
 
-        Ado.Query(query, parameters);
-        return entity;
+        var classId = Ado.Query(query, parameters);
+
+        if (classId == -1)
+        {
+            return new Class();
+        }
+       
+        var classEntity = Get().First(c => c.Id == classId);
+        
+        return classEntity;
     }
 
     public List<Class> Get()

@@ -65,7 +65,7 @@ public class EmployeeController : IController
                 roleGropeFactory.Create(new RoleGrope
                 {
                     EmployeeId = newEmployee.Id,
-                    Role = role
+                    RoleId = role.Id
                 });
             }
         }
@@ -100,7 +100,7 @@ public class EmployeeController : IController
             return;
         }
 
-        bool isSure = Validation.MakeSureNotEmpty("Är du säker på att du vill ta bort anställd? (ja/nej)", "Svar") == "ja";
+        bool isSure = Validation.MakeSureNotEmpty("Är du säker på att du vill ta bort anställd? (ja/nej)", "Svar").Equals("ja", StringComparison.CurrentCultureIgnoreCase);
 
         if (!isSure)
         {

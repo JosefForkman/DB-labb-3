@@ -72,21 +72,36 @@ public class Ado
     /// <param name="query"></param>
     /// <param name="parameters"></param>
     /// <param name="commandType"></param>
-    /// <returns>The last inserted id</returns>
+    /// <returns>The last inserted id and if id does not exist returns -1</returns>
     public static int Query(string query, SqlParameter[] parameters, CommandType commandType = CommandType.Text)
     {
         using var connection = new SqlConnection(ConnectionString);
         connection.Open();
 
-        using var command = new SqlCommand(query + "; SELECT SCOPE_IDENTITY()", connection);
-        command.CommandType = commandType;
-        command.Parameters.AddRange(parameters);
+        // Execute the query
+        using (var command = new SqlCommand(query, connection))
+        {
+            command.CommandType = commandType;
+            command.Parameters.AddRange(parameters);
 
-        // Execute the query and get the last inserted id
-        var result = command.ExecuteScalar();
-        var id = Convert.ToInt32(result);
+            // Execute the query
+            command.ExecuteNonQuery();
+        }
 
-        connection.Close();
-        return id;
+        // Get the last inserted id
+        using (var command = new SqlCommand("SELECT @@identity", connection))
+        {
+            // Execute the query
+            var idResult = command.ExecuteScalar();
+
+            // Check if the result is null
+            if (idResult == DBNull.Value || idResult == null)
+            {
+                return -1;
+            }
+
+            // Return the id
+            return Convert.ToInt32(idResult); ;
+        }
     }
 }

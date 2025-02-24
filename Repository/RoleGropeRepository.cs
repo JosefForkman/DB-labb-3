@@ -17,8 +17,16 @@ public class RoleGropeRepository : IRepository<RoleGrope>
             new SqlParameter("@employee_id", entity.EmployeeId),
             new SqlParameter("@role_id", entity.RoleId)
         };
-        entity.Id = Ado.Query(query, parameters);
-        return entity;
+        var RoleGropeId = Ado.Query(query, parameters);
+
+        if (RoleGropeId == -1)
+        {
+            return new RoleGrope();
+        }
+
+        var roleGrope = Get("id", RoleGropeId).First();
+
+        return roleGrope;
     }
 
     public List<RoleGrope> Get()
